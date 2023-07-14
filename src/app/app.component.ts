@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   tipAmount!: number;
   totalAmount!: number;
   rate!: number;
+  
 
   form = new FormGroup({
     bill: new FormControl<number | undefined>(undefined),

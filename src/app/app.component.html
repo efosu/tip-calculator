@@ -1,43 +1,46 @@
-<form [formGroup]="form">
+<main>
   <img src="../assets/images/logo.svg" alt="logo image">
-  <div class="calculator-container">
-    <div class="input-container">
-      <div class="input bill-container">
-        <label for="bill">Bill</label>
-        <input type="number" formControlName="bill" (input)="recalculate()" id="bill" placeholder="0">
-      </div>
-      <div class="tip-container">
-        <app-psuedo-input (setInput)="updateRate($event)" [rate]="0.05"></app-psuedo-input>
-        <app-psuedo-input (setInput)="updateRate($event)" [rate]="0.1"></app-psuedo-input>
-        <app-psuedo-input (setInput)="updateRate($event)" [rate]="0.15"></app-psuedo-input>
-        <app-psuedo-input (setInput)="updateRate($event)" [rate]="0.25"></app-psuedo-input>
-        <app-psuedo-input (setInput)="updateRate($event)" [rate]="0.50"></app-psuedo-input>
-        <input type="number"  placeholder="Custom" (input)="updateRate(customRate!.value!)" formControlName="customRate" >
-      </div>
-      <div class="input people-container">
-        <div class="people-label">
-          <span>Number of People</span>
-          <span *ngIf="people!.errors?.['isZero'] && (people!.dirty || people!.touched || bill!.touched || bill!.dirty)">Can't be zero</span>
+  <form [formGroup]="form">
+      <div class="input-container">
+        <div class="input bill-container">
+          <label for="bill">Bill</label>
+          <input type="number" formControlName="bill" (input)="recalculate()" id="bill" placeholder="0">
         </div>
-        <input type="number" formControlName="people" (input)="recalculate()" id="people" placeholder="0">
-      </div>
-    </div>
-    <div class="output-container">
-      <div class="output">
-        <div class="labels">
-          <span>Tip Amount</span>
-          <span>/ person</span>
+        <fieldset class="tip-container">
+          <legend>Select Tip%</legend>
+          <div class="tips">
+            <app-psuedo-input (setInput)="updateRate($event)" [rate]="0.05"></app-psuedo-input>
+            <app-psuedo-input (setInput)="updateRate($event)" [rate]="0.1"></app-psuedo-input>
+            <app-psuedo-input (setInput)="updateRate($event)" [rate]="0.15"></app-psuedo-input>
+            <app-psuedo-input (setInput)="updateRate($event)" [rate]="0.25"></app-psuedo-input>
+            <app-psuedo-input (setInput)="updateRate($event)" [rate]="0.50"></app-psuedo-input>
+            <input type="number"  placeholder="Custom" (input)="updateRate(customRate!.value!)" formControlName="customRate">
+            </div>
+          </fieldset>
+        <div class="input people-container">
+          <div class="people-label">
+            <span>Number of People</span>
+            <span class="error" *ngIf="people!.errors?.['isZero'] && (people!.dirty || people!.touched || bill!.touched || bill!.dirty)">Can't be zero</span>
+          </div>
+          <input type="number" formControlName="people" (input)="recalculate()" id="people" placeholder="0">
         </div>
-        <span>{{tipAmount  | noFinity| currency: 'USD': 'symbol':'0.2-2'}}</span>
       </div>
-      <div class="output">
-        <div class="labels">
-          <span>Total</span>
-          <span>/ person</span>
+      <div class="output-container">
+        <div class="output">
+          <div class="labels">
+            <span>Tip Amount</span>
+            <span>/ person</span>
+          </div>
+          <span>{{tipAmount  | noFinity| currency: 'USD': 'symbol':'0.2-2'}}</span>
         </div>
-        <span>{{totalAmount | noFinity | currency: 'USD': 'symbol': '0.2-2'}}</span>
+        <div class="output">
+          <div class="labels">
+            <span>Total</span>
+            <span>/ person</span>
+          </div>
+          <span>{{totalAmount | noFinity | currency: 'USD': 'symbol': '0.2-2'}}</span>
+        </div>
+        <button type="reset" (click)="reset()">Reset</button>
       </div>
-      <button type="reset" (click)="reset()">Reset</button>
-    </div>
-  </div>
-</form>
+  </form>
+</main>

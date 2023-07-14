@@ -1,1 +1,4 @@
-<span (click)="emitInput()">{{rate | percent}}</span>
+<div>
+<input type="radio" [id]="id" name="rate" (click)="emitInput()">
+<label [for]="id">{{rate | percent}}</label>
+</div>
